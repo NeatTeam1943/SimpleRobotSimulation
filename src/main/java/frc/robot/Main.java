@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.RobotBase;
  * Main project class. SHOULD NOT be extended.
  */
 public final class Main {
+    
     private Main() {
     }
 
