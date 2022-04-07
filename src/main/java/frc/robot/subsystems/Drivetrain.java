@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -33,6 +36,11 @@ public class Drivetrain extends SubsystemBase {
 
     // Drivetrain differential drive
     private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+
+    // Drivetrain odometry
+    private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+            m_gyro.getRotation2d(),
+            new Pose2d(DrivetrainConstants.kOdometryPoseX, DrivetrainConstants.kOdometryPoseY, new Rotation2d()));
 
     public Drivetrain() {
         // Set encoder units per revolution
@@ -77,5 +85,13 @@ public class Drivetrain extends SubsystemBase {
      */
     public void stop() {
         m_robotDrive.stopMotor();
+    }
+
+    /**
+     * Update drivetrain odometry.
+     */
+    @Override
+    public void periodic() {
+        m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
     }
 }

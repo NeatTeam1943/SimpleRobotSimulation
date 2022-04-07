@@ -37,5 +37,8 @@ public final class Constants {
         public static final double kWheelRadius = .333333333;
 
         public static final int kGyro = 0;
+
+        public static final double kOdometryPoseX = 5.;
+        public static final double kOdometryPoseY = 13.5;
     }
 }
