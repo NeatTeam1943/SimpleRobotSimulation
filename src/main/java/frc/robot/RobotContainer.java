@@ -4,14 +4,24 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.IOConstants;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * This class is where the bulk of the robot should be declared.
  */
 public class RobotContainer {
+
+    private final Joystick m_stick = new Joystick(IOConstants.kJoystick);
+
+    private final Drivetrain m_drivetrain = new Drivetrain();
+
+    private final ArcadeDrive m_arcadeDrive = new ArcadeDrive(m_stick, m_drivetrain);
 
     private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -44,6 +54,7 @@ public class RobotContainer {
      * a joystick to control the robot.
      */
     private void configureDefaultCommands() {
+        m_drivetrain.setDefaultCommand(m_arcadeDrive);
     }
 
     /**
