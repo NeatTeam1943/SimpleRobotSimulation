@@ -4,24 +4,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.auto.AutoDrive2Sec;
-import frc.robot.commands.auto.AutoTurn90Deg;
-import frc.robot.commands.auto.AutoTurn90DegPID;
-import frc.robot.subsystems.Drivetrain;
 
 /**
  * This class is where the bulk of the robot should be declared.
  */
 public class RobotContainer {
 
-    private final Joystick m_stick = new Joystick(0);
     private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
     /**
