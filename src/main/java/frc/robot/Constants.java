@@ -9,11 +9,19 @@ package frc.robot;
  * numerical or boolean constants.
  */
 public final class Constants {
+
+    public static final class SimConstants {
+
+        public static final double kDrivetrainSimUpdatePeriod = .02;
+    }
+
     public static final class IOConstants {
+
         public static final int kJoystick = 0;
     }
 
     public static final class AutoConstants {
+
         public static final double kAutoTurnAngle = 90.;
         public static final double kAutoTurnPower = .3;
 
@@ -26,6 +34,7 @@ public final class Constants {
     }
 
     public static final class DrivetrainConstants {
+
         public static final int kLeftMotor = 0;
         public static final int kRightMotor = 1;
 
