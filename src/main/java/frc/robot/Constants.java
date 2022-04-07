@@ -13,6 +13,18 @@ public final class Constants {
         public static final int kJoystick = 0;
     }
 
+    public static final class AutoConstants {
+        public static final double kAutoTurnAngle = 90.;
+        public static final double kAutoTurnPower = .3;
+
+        public static final double kAutoTurnP = .1;
+        public static final double kAutoTurnI = .1;
+        public static final double kAutoTurnD = .0;
+
+        public static final double kAutoDriveTime = 2.;
+        public static final double kAutoDrivePower = .5;
+    }
+
     public static final class DrivetrainConstants {
         public static final int kLeftMotor = 0;
         public static final int kRightMotor = 1;

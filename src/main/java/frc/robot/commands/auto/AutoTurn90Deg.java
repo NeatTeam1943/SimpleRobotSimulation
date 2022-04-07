@@ -2,24 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.Drivetrain;
 
 /**
- * Drive the robot using arcade drive. Default command for the drivetrain.
+ * Autonomously turns the robot 90 degrees.
  */
-public class ArcadeDrive extends CommandBase {
+public class AutoTurn90Deg extends CommandBase {
 
-  private final Joystick m_stick;
+  private double m_originalHeading = .0;
+
   private final Drivetrain m_drivetrain;
 
-  public ArcadeDrive(Joystick stick, Drivetrain drivetrain) {
-    m_stick = stick;
+  public AutoTurn90Deg(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
-
     addRequirements(m_drivetrain);
   }
 
@@ -28,6 +27,7 @@ public class ArcadeDrive extends CommandBase {
    */
   @Override
   public void initialize() {
+    m_originalHeading = m_drivetrain.getHeading();
   }
 
   /**
@@ -35,7 +35,7 @@ public class ArcadeDrive extends CommandBase {
    */
   @Override
   public void execute() {
-    m_drivetrain.arcadeDrive(-m_stick.getY(), m_stick.getX());
+    m_drivetrain.arcadeDrive(.0, AutoConstants.kAutoTurnPower);
   }
 
   /**
@@ -51,6 +51,6 @@ public class ArcadeDrive extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return false;
+    return m_drivetrain.getHeading() > m_originalHeading + AutoConstants.kAutoTurnAngle;
   }
 }
