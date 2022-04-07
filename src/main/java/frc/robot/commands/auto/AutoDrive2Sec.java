@@ -2,24 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.auto;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.Drivetrain;
 
 /**
- * Drive the robot using arcade drive. Default command for the drivetrain.
+ * Autonomously drives the robot for 2 seconds.
  */
-public class ArcadeDrive extends CommandBase {
+public class AutoDrive2Sec extends CommandBase {
 
-  private final Joystick m_stick;
+  private final Timer m_timer = new Timer();
+
   private final Drivetrain m_drivetrain;
 
-  public ArcadeDrive(Joystick stick, Drivetrain drivetrain) {
-    m_stick = stick;
+  public AutoDrive2Sec(Drivetrain drivetrain) {
     m_drivetrain = drivetrain;
-
     addRequirements(m_drivetrain);
   }
 
@@ -28,6 +28,8 @@ public class ArcadeDrive extends CommandBase {
    */
   @Override
   public void initialize() {
+    m_timer.reset();
+    m_timer.start();
   }
 
   /**
@@ -35,7 +37,7 @@ public class ArcadeDrive extends CommandBase {
    */
   @Override
   public void execute() {
-    m_drivetrain.arcadeDrive(-m_stick.getY(), m_stick.getX());
+    m_drivetrain.arcadeDrive(AutoConstants.kAutoDrivePower, .0);
   }
 
   /**
@@ -44,6 +46,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drivetrain.stop();
+    m_timer.stop();
   }
 
   /**
@@ -51,6 +54,6 @@ public class ArcadeDrive extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return false;
+    return m_timer.get() >= AutoConstants.kAutoDriveTime;
   }
 }

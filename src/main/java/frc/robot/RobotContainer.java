@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IOConstants;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.auto.AutoDrive2Sec;
+import frc.robot.commands.auto.AutoTurn90Deg;
+import frc.robot.commands.auto.AutoTurn90DegPID;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -22,6 +25,10 @@ public class RobotContainer {
     private final Drivetrain m_drivetrain = new Drivetrain();
 
     private final ArcadeDrive m_arcadeDrive = new ArcadeDrive(m_stick, m_drivetrain);
+
+    private final AutoDrive2Sec m_autoDrive2Sec = new AutoDrive2Sec(m_drivetrain);
+    private final AutoTurn90Deg m_autoTurn90Deg = new AutoTurn90Deg(m_drivetrain);
+    private final AutoTurn90DegPID m_autoTurn90DegPID = new AutoTurn90DegPID(m_drivetrain);
 
     private final SendableChooser<Command> m_autoChooser = new SendableChooser<>();
 
@@ -39,6 +46,10 @@ public class RobotContainer {
      * The chooser will be displayed on the dashboard.
      */
     private void configureAutoChooser() {
+        m_autoChooser.setDefaultOption("Drive 2 Seconds", m_autoDrive2Sec);
+        m_autoChooser.addOption("Turn 90 Degrees", m_autoTurn90Deg);
+        m_autoChooser.addOption("Turn 90 Degrees PID", m_autoTurn90DegPID);
+
         SmartDashboard.putData("Auto", m_autoChooser);
     }
 
